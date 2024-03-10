@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #define TAM 12
 
 typedef struct NO {
@@ -21,12 +22,125 @@ void inicializa_lista(Lista *lista) {
     lista->fim = NULL;
 }
 
-int funcaoHash(int chave){
-    return chave % TAM;
+int funcaoHash(char chave[18]){
+    
+    int resultado = 0;
+    int i;
+
+    for(i = 0; chave[i] != '\0';i++){
+        resultado = resultado * 10 + (int)chave[i];
+    }
+
+    if(resultado < 0){
+        resultado = resultado * -1;
+    }
+
+    return resultado % TAM;
 }
 
 void inserir_recurso(Lista* lista, char recurso[18]){
+    int posicao = funcaoHash(recurso);
+    printf("POSICAO :%d ",posicao);
+    if (lista->inicio == NULL) {
+        printf("Lista vazia.\n");
+        return;
+    }
+
+    NO* atual = lista->inicio;
+    //NO* salvar_ativo;
+    int achar_prinmeiro = 0;
+    NO* primeiro_ativo;
+    NO* auxiliar;
     
+    do {
+        
+        if(atual->ativo == 1 && achar_prinmeiro == 0){
+            //salvar_ativo = atual;
+            primeiro_ativo = atual;
+            achar_prinmeiro = 1;
+            
+        } else if (atual->ativo == 1 && achar_prinmeiro == 1) {
+            
+            if(posicao <= atual->valor ){
+                for(auxiliar = atual->responsavel; auxiliar != atual->proximo; auxiliar = auxiliar->proximo){
+                    if(auxiliar->valor == posicao){
+                        strcpy(auxiliar->recurso,recurso);
+                        printf("recurso inserido no NO %d pelo NO ativo %d\n",posicao,atual->valor);
+                        return;
+                    }
+                } 
+            } 
+            
+            //salvar_ativo = atual;
+        }
+        
+
+        atual = atual->proximo;
+    } while (atual != lista->inicio);
+
+    
+    for(auxiliar = primeiro_ativo->responsavel; auxiliar != primeiro_ativo->proximo; auxiliar = auxiliar->proximo){
+        
+        if(auxiliar->valor == posicao){
+            
+            strcpy(auxiliar->recurso,recurso);
+            printf("recurso inserido no NO %d pelo NO ativo %d\n",posicao,primeiro_ativo->valor);
+            return;
+        }
+    } 
+
+}
+
+void buscar_recurso(Lista* lista, char recurso[18]){
+    int posicao = funcaoHash(recurso);
+    printf("POSICAO :%d ",posicao);
+    if (lista->inicio == NULL) {
+        printf("Lista vazia.\n");
+        return;
+    }
+
+    NO* atual = lista->inicio;
+    //NO* salvar_ativo;
+    int achar_prinmeiro = 0;
+    NO* primeiro_ativo;
+    NO* auxiliar;
+    
+    do {
+        
+        if(atual->ativo == 1 && achar_prinmeiro == 0){
+            //salvar_ativo = atual;
+            primeiro_ativo = atual;
+            achar_prinmeiro = 1;
+            
+        } else if (atual->ativo == 1 && achar_prinmeiro == 1) {
+            
+            if(posicao <= atual->valor ){
+                for(auxiliar = atual->responsavel; auxiliar != atual->proximo; auxiliar = auxiliar->proximo){
+                    if(auxiliar->valor == posicao){
+                        
+                        printf("recurso %s encontrado no NO %d pelo NO ativo %d\n",auxiliar->recurso, posicao, atual->valor);
+                        
+                        return;
+                    }
+                } 
+            } 
+            
+            //salvar_ativo = atual;
+        }
+        
+
+        atual = atual->proximo;
+    } while (atual != lista->inicio);
+
+    
+    for(auxiliar = primeiro_ativo->responsavel; auxiliar != primeiro_ativo->proximo; auxiliar = auxiliar->proximo){
+        
+        if(auxiliar->valor == posicao){
+            
+            printf("recurso %s encontrado no NO %d pelo NO ativo %d\n",auxiliar->recurso, posicao, atual->valor);
+            return;
+        }
+    } 
 }
 
 void inserir_no_fim(Lista* lista, int valor) {
@@ -231,6 +345,8 @@ int main() {
     Lista lista;
     inicializa_lista(&lista);
 
+    char string[18] = "bonita";
+
     inserir_no_fim(&lista, 0);
     inserir_no_fim(&lista, 1);
     inserir_no_fim(&lista, 2);
@@ -262,6 +378,21 @@ int main() {
 
     conectar_responsaveis(&lista);
     imprimir_responsaveis(&lista);
+
+    strcpy(string,"batman");
+    inserir_recurso(&lista, string);
+
+    strcpy(string,"superman");
+    inserir_recurso(&lista, string);
+
+    strcpy(string,"maravilha");
+    inserir_recurso(&lista, string);
+
+    strcpy(string,"darkseid");
+    inserir_recurso(&lista, string);
+
+    strcpy(string,"darkseid");
+    buscar_recurso(&lista, string);
 
     /*desativar_no(&lista, 32);
     ligar_no_ativado(&lista);
