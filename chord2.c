@@ -85,7 +85,6 @@ void inserir_recurso(Lista* lista, char recurso[18]){
             return;
         }
     } 
-
 }
 
 void buscar_recurso(Lista* lista, char recurso[18]){
