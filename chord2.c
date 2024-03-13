@@ -399,8 +399,5 @@ int main() {
 
     imprimir_ativos_ligados(&lista);
     imprimir_responsaveis(&lista);
-
-
-
     return 0;
 }
