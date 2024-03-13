@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define TAM 12
+#define TAM 16
 
 typedef struct NO {
     int valor;
@@ -139,7 +139,7 @@ void buscar_recurso(Lista* lista, char recurso[18]){
 void inserir_no_fim(Lista* lista, int valor) {
     NO* novo_no = (NO *)malloc(sizeof(NO));
     if (novo_no == NULL) {
-        printf("Erro: Não foi possível alocar memória para o NOvo nó.\n");
+        printf("Erro: Não foi possível alocar memória para o novo nó.\n");
         return;
     }
 
