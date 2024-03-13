@@ -126,14 +126,14 @@ void buscar_recurso(Lista* lista, char recurso[18]){
     } while (atual != lista->inicio);
 
     
-    for(auxiliar = primeiro_ativo->responsavel; auxiliar != primeiro_ativo->proximo; auxiliar = auxiliar->proximo){
+    // for(auxiliar = primeiro_ativo->responsavel; auxiliar != primeiro_ativo->proximo; auxiliar = auxiliar->proximo){
         
-        if(auxiliar->valor == posicao){
+    //     if(auxiliar->valor == posicao){
             
-            printf("recurso %s encontrado no NO %d pelo NO ativo %d\n",auxiliar->recurso, posicao, atual->valor);
-            return;
-        }
-    } 
+    //         printf("recurso %s encontrado no NO %d pelo NO ativo %d\n",auxiliar->recurso, posicao, atual->valor);
+    //         return;
+    //     }
+    // } 
 }
 
 void inserir_no_fim(Lista* lista, int valor) {
