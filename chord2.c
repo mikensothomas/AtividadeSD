@@ -76,15 +76,15 @@ void inserir_recurso(Lista* lista, char recurso[18]){
     } while (atual != lista->inicio);
 
     
-    for(auxiliar = primeiro_ativo->responsavel; auxiliar != primeiro_ativo->proximo; auxiliar = auxiliar->proximo){
+    // for(auxiliar = primeiro_ativo->responsavel; auxiliar != primeiro_ativo->proximo; auxiliar = auxiliar->proximo){
         
-        if(auxiliar->valor == posicao){
+    //     if(auxiliar->valor == posicao){
             
-            strcpy(auxiliar->recurso,recurso);
-            printf("recurso inserido no NO %d pelo NO ativo %d\n" ,posicao, primeiro_ativo->valor);
-            return;
-        }
-    } 
+    //         strcpy(auxiliar->recurso,recurso);
+    //         printf("recurso inserido no NO %d pelo NO ativo %d\n" ,posicao, primeiro_ativo->valor);
+    //         return;
+    //     }
+    // } 
 }
 
 void buscar_recurso(Lista* lista, char recurso[18]){
@@ -363,10 +363,11 @@ int main() {
     ativar_no(&lista, 5);
     ativar_no(&lista, 9);
     ativar_no(&lista, 13);
+    ativar_no(&lista, 6);
 
     printf("===========================================================\n");
     printf("Nós desativados: \n");
-    //desativar_no(&lista, 6);
+    desativar_no(&lista, 6);
     printf("=======================================================\n");
 
     ligar_no_ativado(&lista);
